@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>User Dashboard</h1>
+    <h2>Nearby Charging Stations</h2>
+    <form method="POST">
+        <ul>
+            {% for station in stations %}
+                <li>
+                    <a href="{{ station.map_link }}" target="_blank">{{ station.name }}</a>
+                    <button type="submit" name="station" value="{{ station.name }}">Visit Remote Charging</button>
+                </li>
+            {% endfor %}
+        </ul>
+    </form>
+</body>
+</html>

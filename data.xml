@@ -1,0 +1,64 @@
+<data>
+    <users>
+        <user type="user">
+            <username>user1</username>
+            <password>password123</password>
+        </user>
+        <user type="provider">
+            <username>provider1</username>
+            <password>provider123</password>
+        </user>
+        <user type="admin">
+            <username>admin</username>
+            <password>admin123</password>
+        </user>
+    </users>
+    <charging_stations>
+        <station>
+            <name>SparkCharge Networks</name>
+            <map_link>https://maps.app.goo.gl/TJzFsHqD3jrU3CzB9</map_link>
+        </station>
+        <station>
+            <name>Ampere Charging Hub</name>
+            <map_link>https://maps.app.goo.gl/PTWLqh1SqsuiLwM59</map_link>
+        </station>
+        <station>
+            <name>ElectroFast Chargers</name>
+            <map_link>https://maps.app.goo.gl/R7cP5HFaPcHswCT46</map_link>
+        </station>
+        <station>
+            <name>SwiftCharge Solutions</name>
+            <map_link>https://maps.app.goo.gl/81NDMhGqisVuAYNz9</map_link>
+        </station>
+        <station>
+            <name>VoltCharge Solutions</name>
+            <map_link>https://maps.app.goo.gl/TTk62Y82sHxnqYwX6</map_link>
+        </station>
+        <station>
+            <name>GreenPlug Charging</name>
+            <map_link>https://maps.app.goo.gl/bmrwqgxpeR6EcgKo7</map_link>
+        </station>
+        <station>
+            <name>EcoCharge Stations</name>
+            <map_link>https://maps.app.goo.gl/2M6JeFbJ5CmAUwp37</map_link>
+        </station>
+        <station>
+            <name>PowerUp EV Services</name>
+            <map_link>https://maps.app.goo.gl/AX4tV2okXdVJPJEH8</map_link>
+        </station>
+        <station>
+            <name>ChargePoint Express</name>
+            <map_link>https://maps.app.goo.gl/kfWS2yo3LDP5DioTA</map_link>
+        </station>
+        <station>
+            <name>NextGen EV Charging</name>
+            <map_link>https://maps.app.goo.gl/bLXhBA8wguS4CyJZ6</map_link>
+        </station>
+    </charging_stations>
+    <charging_requests>
+        <request>
+            <username>user1</username>
+            <location>https://maps.app.goo.gl/exampleUserLocation</location>
+        </request>
+    </charging_requests>
+</data>

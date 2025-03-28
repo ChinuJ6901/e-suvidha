@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Dashboard</title>
+</head>
+<body>
+    <h1>Provider Dashboard</h1>
+    <h2>Charging Requests</h2>
+    <ul>
+        {% for request in requests %}
+            <li>
+                User: {{ request.user }}
+                <a href="{{ request.map_link }}" target="_blank">Navigate</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
