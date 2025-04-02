@@ -17,42 +17,62 @@
         <station>
             <name>SparkCharge Networks</name>
             <map_link>https://maps.app.goo.gl/TJzFsHqD3jrU3CzB9</map_link>
+            <lat>18.645617</lat>
+            <lng>73.746156</lng>
         </station>
         <station>
             <name>Ampere Charging Hub</name>
             <map_link>https://maps.app.goo.gl/PTWLqh1SqsuiLwM59</map_link>
+            <lat>18.655635</lat>
+            <lng>73.739159</lng>
         </station>
         <station>
             <name>ElectroFast Chargers</name>
             <map_link>https://maps.app.goo.gl/R7cP5HFaPcHswCT46</map_link>
+            <lat>18.649685</lat>
+            <lng>73.733248</lng>
         </station>
         <station>
             <name>SwiftCharge Solutions</name>
             <map_link>https://maps.app.goo.gl/81NDMhGqisVuAYNz9</map_link>
+            <lat>18.643100</lat>
+            <lng>73.749317</lng>
         </station>
         <station>
             <name>VoltCharge Solutions</name>
             <map_link>https://maps.app.goo.gl/TTk62Y82sHxnqYwX6</map_link>
+            <lat>18.649295</lat>
+            <lng> 73.745534</lng>
         </station>
         <station>
             <name>GreenPlug Charging</name>
             <map_link>https://maps.app.goo.gl/bmrwqgxpeR6EcgKo7</map_link>
+            <lat>18.648967</lat>
+            <lng>73.749749</lng>
         </station>
         <station>
             <name>EcoCharge Stations</name>
             <map_link>https://maps.app.goo.gl/2M6JeFbJ5CmAUwp37</map_link>
+            <lat>18.644714</lat>
+            <lng>73.745261</lng>
         </station>
         <station>
             <name>PowerUp EV Services</name>
             <map_link>https://maps.app.goo.gl/AX4tV2okXdVJPJEH8</map_link>
+            <lat>18.646511</lat>
+            <lng> 73.742395</lng>
         </station>
         <station>
             <name>ChargePoint Express</name>
             <map_link>https://maps.app.goo.gl/kfWS2yo3LDP5DioTA</map_link>
+            <lat>18.650491</lat>
+            <lng>73.750304</lng>
         </station>
         <station>
             <name>NextGen EV Charging</name>
             <map_link>https://maps.app.goo.gl/bLXhBA8wguS4CyJZ6</map_link>
+            <lat>18.648629</lat>
+            <lng>73.746882</lng>
         </station>
     </charging_stations>
     <charging_requests>

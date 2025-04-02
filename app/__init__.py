@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from app.main_routes import main_bp
 from app.user_routes import user_bp
 from app.provider_routes import provider_bp
@@ -13,5 +13,9 @@ def create_app():
     app.register_blueprint(user_bp, url_prefix='/user')
     app.register_blueprint(provider_bp, url_prefix='/provider')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+
+    @app.route("/data.xml")
+    def get_data_xml():
+        return send_from_directory("../", "data.xml")
 
     return app

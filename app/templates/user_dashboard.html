@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>E-SuvidhA Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashstyle.css') }}">
 </head>
 <body>
-    <h1>User Dashboard</h1>
-    <h2>Nearby Charging Stations</h2>
-    <form method="POST">
-        <ul>
-            {% for station in stations %}
-                <li>
-                    <a href="{{ station.map_link }}" target="_blank">{{ station.name }}</a>
-                    <button type="submit" name="station" value="{{ station.name }}">Visit Remote Charging</button>
-                </li>
-            {% endfor %}
-        </ul>
-    </form>
+    <header>
+        <h1>Welcome to E-SuvidhA</h1>
+        <p class="tagline">Find the nearest EV charging stations with ease!</p>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="map"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 E-SuvidhA. All rights reserved.</p>
+    </footer>
+
+    <!-- Load map.js before Google Maps API -->
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADC02ka9uX2FE0oMukl0fRQIlVfaN-nzQ&callback=initMap&libraries=marker"></script>
 </body>
 </html>

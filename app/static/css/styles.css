@@ -1,0 +1,67 @@
+/* EV Charging Theme - Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #0f9b0f, #00c9ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+}
+
+h1 {
+    color: #0f9b0f;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: #00a3cc;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn {
+    width: 100%;
+    background: #0f9b0f;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #087a08;
+}

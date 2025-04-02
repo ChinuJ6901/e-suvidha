@@ -1,29 +1,29 @@
-from flask import Blueprint, render_template, request, redirect, flash
+from flask import Blueprint, render_template, request, redirect, url_for
 import xml.etree.ElementTree as ET
 
-user_bp = Blueprint('user', __name__)
-DATA_FILE = 'data.xml'
+user_bp = Blueprint("user", __name__, url_prefix="/user")
 
-@user_bp.route('/dashboard', methods=['GET', 'POST'])
+DATA_FILE = "data.xml"
+
+@user_bp.route("/dashboard", methods=["GET"])
 def user_dashboard():
+    # Load charging stations from the XML file
     tree = ET.parse(DATA_FILE)
     root = tree.getroot()
-
-    charging_stations = root.find('charging_stations')
     stations = []
-    for station in charging_stations.findall('station'):
+    for station in root.find("charging_stations"):
+        lat_element = station.find("lat")
+        lng_element = station.find("lng")
+
+        # Check if latitude and longitude exist, else assign default values
+        lat = lat_element.text if lat_element is not None else "0"
+        lng = lng_element.text if lng_element is not None else "0"
+
         stations.append({
-            'name': station.find('name').text,
-            'map_link': station.find('map_link').text
+            "name": station.find("name").text,
+            "map_link": station.find("map_link").text,
+            "lat": lat,
+            "lng": lng
         })
 
-    if request.method == 'POST':
-        # Handle remote charging kit request
-        selected_station = request.form['station']
-        for station in charging_stations.findall('station'):
-            if station.find('name').text == selected_station:
-                station_location = station.find('map_link').text
-                flash(f'Remote charging request sent to {selected_station}. They can view your location.', 'success')
-                return redirect(station_location)
-
-    return render_template('user_dashboard.html', stations=stations)
+    return render_template("user_dashboard.html", stations=stations)
