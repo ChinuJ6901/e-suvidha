@@ -40,6 +40,7 @@ def login():
             if stored_password == password:
                 session["user_id"] = user_id
                 session["user_type"] = user_type
+                session["username"] = username  # ✅ Store the username in session
 
                 flash("✅ Login successful!", "success")
 

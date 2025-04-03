@@ -3,6 +3,7 @@ import snowflake.connector
 
 provider_bp = Blueprint("provider", __name__, url_prefix="/provider")
 
+
 def get_snowflake_connection():
     return snowflake.connector.connect(
         user="DIVPREM",
@@ -13,6 +14,7 @@ def get_snowflake_connection():
         schema="APPDATA"
     )
 
+
 # ✅ Route: Station Dashboard (Only for Stations)
 @provider_bp.route("/dashboard", methods=["GET"])
 def provider_dashboard():
@@ -22,17 +24,36 @@ def provider_dashboard():
 
     station_name = session.get("username")  # The station's name is stored as username
 
+    print("🔥 SESSION DATA:", session)
+    print("🚀 Fetching requests for:", station_name)  # Debugging
+
     conn = get_snowflake_connection()
     cur = conn.cursor()
 
     sql_query = """
         SELECT REQUEST_ID, USERNAME, MOBILE, SERVICE_TYPE, CURRENT_LOCATION, REQUEST_TIME
-        FROM CHARGING_REQUESTS
-        WHERE STATION_NAME = %s AND STATUS = 'open'
+        FROM ESUVIDHA.APPDATA.CHARGING_REQUESTS
+        WHERE UPPER(STATION_NAME) = UPPER(%s) AND STATUS = 'open'
         ORDER BY REQUEST_TIME DESC;
     """
+
     cur.execute(sql_query, (station_name,))
-    requests = cur.fetchall()
+    rows = cur.fetchall()
+
+    # Convert results into a dictionary for easier use in Jinja
+    requests = [
+        {
+            "REQUEST_ID": row[0],
+            "USERNAME": row[1],
+            "MOBILE": row[2],
+            "SERVICE_TYPE": row[3],
+            "CURRENT_LOCATION": row[4],
+            "REQUEST_TIME": row[5]
+        }
+        for row in rows
+    ]
+
+    print("✅ Fetched Requests:", requests)  # Debugging
 
     cur.close()
     conn.close()
