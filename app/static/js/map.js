@@ -97,7 +97,7 @@ function initMap() {
                                                font-weight: bold;">
                                         🚗 Go to Station
                                     </a>
-                                    <a href="/book-charging-service?station=${encodeURIComponent(name)}" target="_blank"
+                                    <a href="/user/book-charging-service?station=${encodeURIComponent(name)}" target="_blank"
                                         style="text-decoration: none;
                                                background-color: #007bff;
                                                color: white;

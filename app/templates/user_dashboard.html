@@ -26,4 +26,12 @@
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADC02ka9uX2FE0oMukl0fRQIlVfaN-nzQ&callback=initMap&libraries=marker"></script>
 </body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 </html>

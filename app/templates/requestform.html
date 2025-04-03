@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Charging Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reqform.css') }}">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>⚡ Book Remote Charging Service</h2>
+
+        <form action="{{ url_for('user.submit_request') }}" method="POST">
+
+            <!-- Username -->
+            <label for="username">Your Name</label>
+            <input type="text" id="username" name="username" required placeholder="Enter your name">
+
+            <!-- Mobile Number -->
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" name="mobile" required placeholder="Enter your mobile number">
+
+            <!-- Current Location (Auto-filled) -->
+            <label for="current_location">Your Location</label>
+            <input type="text" id="current_location" name="current_location" readonly>
+
+            <!-- Hidden fields for Latitude & Longitude -->
+            <input type="hidden" id="lat" name="lat">
+            <input type="hidden" id="lng" name="lng">
+
+            <!-- Service Type -->
+            <label for="service_type">Select Service Type</label>
+            <select id="service_type" name="service_type" required>
+                <option value="Regular Charging">Regular Charging</option>
+                <option value="Fast Charging">Fast Charging</option>
+            </select>
+
+            <!-- Selected Station (Auto-filled) -->
+            <label for="station_name">Charging Station</label>
+            <input type="text" id="station_name" name="station_name" readonly>
+
+            <!-- Submit Button -->
+            <button type="submit">⚡ Request Charging</button>
+
+        </form>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Auto-fill the station name from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const station = urlParams.get("station");
+        if (station) {
+            document.getElementById("station_name").value = decodeURIComponent(station);
+        }
+
+        // Fetch User's Current Location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+
+                // Google Maps link
+                let mapLink = `https://www.google.com/maps?q=${lat},${lng}`;
+
+                // Fill form fields
+                document.getElementById("current_location").value = mapLink;
+                document.getElementById("lat").value = lat;
+                document.getElementById("lng").value = lng;
+            }, function (error) {
+                console.error("Error getting location:", error);
+                alert("Failed to fetch location. Please enable GPS.");
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    });
+    </script>
+
+</body>
+</html>

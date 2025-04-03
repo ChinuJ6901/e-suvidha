@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 20px;
+}
+
+.tracking-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #ccc;
+    display: inline-block;
+}
+
+.status-box {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.status.open { color: orange; }
+.status.progress { color: blue; }
+.status.charging { color: green; }
+.status.completed { color: purple; }
+
+.btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
