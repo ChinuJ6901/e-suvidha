@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Charging Request</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/track.css') }}">
+    <script>
+        // Auto-refresh every 5 seconds
+        setInterval(function() {
+            location.reload();
+        }, 7000);
+    </script>
 </head>
 <body>
     <div class="tracking-container">
@@ -14,10 +20,14 @@
         <div class="status-box">
             {% if status == 'open' %}
                 <p class="status open">🔄 Remote Charging Requested</p>
+            {% elif status == 'accepted' %}
+                <p class="status accepted">✅ Request Accepted - Coming to Your Location</p>
             {% elif status == 'in-progress' %}
-                <p class="status progress">🚗 Request Accepted - Coming to Your Location</p>
+                <p class="status progress">🚗 Partner Started Journey</p>
+            {% elif status == 'reached' %}
+                <p class="status reached">📍 Partner Reached Your Location</p>
             {% elif status == 'charging' %}
-                <p class="status charging">⚡ Reached - Charging Started</p>
+                <p class="status charging">⚡ Charging Started</p>
             {% elif status == 'completed' %}
                 <p class="status completed">✅ Charging Completed</p>
                 <a href="{{ url_for('user.user_dashboard') }}" class="btn">Go to Dashboard</a>

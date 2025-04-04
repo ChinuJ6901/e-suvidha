@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/provdash.css') }}">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!--<script>
+        // Auto-refresh every 5 seconds
+        setInterval(function() {
+            location.reload();
+        }, 15000);
+    </script>-->
 </head>
 <body>
 
@@ -53,15 +59,45 @@
                         <tr>
                             <td>{{ req.REQUEST_ID }}</td>
                             <td>{{ req.USERNAME }}</td>
-                            <td>{{ req.MOBILE }}</td>
+                            <td>
+                                {% if req.STATUS in ['accepted', 'in-progress', 'reached', 'charging', 'completed'] %}
+                                    {{ req.MOBILE }}
+                                {% else %}
+                                    <i>Hidden</i>
+                                {% endif %}
+                            </td>
                             <td>{{ req.SERVICE_TYPE }}</td>
-                            <td>{{ req.CURRENT_LOCATION }}</td>
+                            <td>
+                                {% if req.STATUS in ['accepted', 'in-progress', 'reached', 'charging', 'completed'] %}
+                                    <a href="{{ req.MAP_LINK }}" target="_blank">📍 View Map</a>
+                                {% else %}
+                                    <i>Hidden</i>
+                                {% endif %}
+                            </td>
                             <td>{{ req.REQUEST_TIME }}</td>
                             <td>
                                 <form action="{{ url_for('provider.update_request') }}" method="POST" class="action-form">
                                     <input type="hidden" name="request_id" value="{{ req.REQUEST_ID }}">
-                                    <button type="submit" name="action" value="accepted" class="btn btn-success">✅ Accept</button>
-                                    <button type="submit" name="action" value="rejected" class="btn btn-danger">❌ Reject</button>
+
+                                    {% if req.STATUS == 'open' %}
+                                        <button type="submit" name="action" value="accepted" class="btn btn-success">✅ Accept</button>
+                                        <button type="submit" name="action" value="rejected" class="btn btn-danger">❌ Reject</button>
+
+                                    {% elif req.STATUS == 'accepted' %}
+                                        <button type="submit" name="action" value="in-progress" class="btn btn-primary">🚗 Start Journey</button>
+
+                                    {% elif req.STATUS == 'in-progress' %}
+                                        <button type="submit" name="action" value="reached" class="btn btn-info">📍 Mark as Reached</button>
+
+                                    {% elif req.STATUS == 'reached' %}
+                                        <button type="submit" name="action" value="charging" class="btn btn-warning">⚡ Start Charging</button>
+
+                                    {% elif req.STATUS == 'charging' %}
+                                        <button type="submit" name="action" value="completed" class="btn btn-dark">✅ Mark as Completed</button>
+
+                                    {% elif req.STATUS == 'completed' %}
+                                        <p class="status completed">✅ Charging Completed</p>
+                                    {% endif %}
                                 </form>
                             </td>
                         </tr>

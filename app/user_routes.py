@@ -125,3 +125,24 @@ def track_request():
     status = status_row[0]  # Get current status
 
     return render_template("track_request.html", request_id=request_id, status=status)
+
+@user_bp.route('/get_active_request')
+def get_active_request():
+    user_id = session.get("user_id")
+    if not user_id:
+        return {"active_request": None}
+
+    conn = get_snowflake_connection()
+    cur = conn.cursor()
+
+    sql_query = "SELECT REQUEST_ID, STATUS FROM ESUVIDHA.APPDATA.CHARGING_REQUESTS WHERE USERNAME = %s AND STATUS != 'completed' ORDER BY REQUEST_TIME DESC LIMIT 1"
+    cur.execute(sql_query, (user_id,))
+    active_request = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    if active_request:
+        return {"active_request": {"REQUEST_ID": active_request[0], "STATUS": active_request[1]}}
+    else:
+        return {"active_request": None}
