@@ -13,6 +13,34 @@
     </header>
 
     <main>
+        <div class="battery-info">
+            <h2>🔋 Battery Status</h2>
+            {% if battery_percentage is not none %}
+                {% set battery_value = battery_percentage | int %}
+                <div class="battery-container">
+                    <div class="battery-shell">
+                        <div class="battery-level" style="width: {{ battery_value }}%;"></div>
+                    </div>
+                    <span class="battery-text">
+                        {{ battery_value }}%
+                        {% if battery_value < 20 %}
+                            😬
+                        {% elif battery_value < 60 %}
+                            🙂
+                        {% elif battery_value < 90 %}
+                            😊
+                        {% else %}
+                            ⚡
+                        {% endif %}
+                    </span>
+                </div>
+            {% else %}
+                <p>Battery data is currently unavailable.</p>
+            {% endif %}
+
+
+        </div>
+
         <div class="container">
             <div id="map"></div>
         </div>
@@ -25,13 +53,13 @@
     <!-- Load map.js before Google Maps API -->
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADC02ka9uX2FE0oMukl0fRQIlVfaN-nzQ&callback=initMap&libraries=marker"></script>
-</body>
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="flash-message {{ category }}">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
 </html>

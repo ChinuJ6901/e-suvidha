@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 import snowflake.connector
 import datetime
-import uuid  # Added for UUID generation
+import uuid # Added for UUID generation
+import requests #added for fetching thinkspeak data
 
 user_bp = Blueprint("user", __name__, url_prefix="/user")
 
@@ -51,7 +52,17 @@ def get_stations_from_snowflake():
 @user_bp.route("/dashboard", methods=["GET"])
 def user_dashboard():
     stations = get_stations_from_snowflake()
-    return render_template("user_dashboard.html", stations=stations)
+    # Get battery percentage from ThingSpeak
+    battery_percentage = None
+    try:
+        url = "https://api.thingspeak.com/channels/2733421/fields/3/last.json?api_key=JM7WH9WQMIYLY9FX"
+        response = requests.get(url)
+        data = response.json()
+        print("ThingSpeak Response:", data)  # for debugging
+        battery_percentage = data.get("field3")
+    except Exception as e:
+        print(f"ThingSpeak error: {e}")
+    return render_template("user_dashboard.html", stations=stations, battery_percentage=battery_percentage)
 
 
 # Booking Form Page
