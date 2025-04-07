@@ -55,11 +55,11 @@ def user_dashboard():
     # Get battery percentage from ThingSpeak
     battery_percentage = None
     try:
-        url = "https://api.thingspeak.com/channels/2733421/fields/3/last.json?api_key=JM7WH9WQMIYLY9FX"
+        url = "https://api.thingspeak.com/channels/2733421/fields/1/last.json?api_key=JM7WH9WQMIYLY9FX"
         response = requests.get(url)
         data = response.json()
         print("ThingSpeak Response:", data)  # for debugging
-        battery_percentage = data.get("field3")
+        battery_percentage = data.get("field1")
     except Exception as e:
         print(f"ThingSpeak error: {e}")
     return render_template("user_dashboard.html", stations=stations, battery_percentage=battery_percentage)
