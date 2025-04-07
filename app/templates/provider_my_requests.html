@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Closed Requests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prodashstyle.css') }}">
+</head>
+<body>
+    <header class="dashboard-header">
+        <h1>📂 Closed Charging Requests</h1>
+    </header>
+
+    <div class="top-bar">
+        <a href="{{ url_for('provider.provider_dashboard') }}" class="btn-back">⬅ Back to Dashboard</a>
+    </div>
+
+    <main class="dashboard-content">
+        {% if requests %}
+            <div class="table-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Time</th>
+                            <th>User</th>
+                            <th>Mobile</th>
+                            <th>Location</th>
+                            <th>Service Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for req in requests %}
+                            <tr>
+                                <td>{{ req[0] }}</td>
+                                <td>{{ req[1] }}</td>
+                                <td>{{ req[2] }}</td>
+                                <td>{{ req[3] }}</td>
+                                <td><a href="{{ req[4] }}" target="_blank" style="color: #00c853; font-weight: bold;">Service Location</a></td>
+                                <td>{{ req[5] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="no-data">No closed requests found.</p>
+        {% endif %}
+    </main>
+
+    <footer class="dashboard-footer">
+        <p>© 2025 E-SuvidhA. All rights reserved.</p>
+    </footer>
+</body>
+</html>

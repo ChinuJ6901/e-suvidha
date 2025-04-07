@@ -24,8 +24,8 @@ def provider_dashboard():
 
     station_name = session.get("username")  # The station's name is stored as username
 
-    print("🔥 SESSION DATA:", session)
-    print("🚀 Fetching requests for:", station_name)  # Debugging
+    # print("🔥 SESSION DATA:", session)
+    # print("🚀 Fetching requests for:", station_name)  # Debugging
 
     conn = get_snowflake_connection()
     cur = conn.cursor()
@@ -54,7 +54,7 @@ def provider_dashboard():
         for row in rows
     ]
 
-    print("✅ Fetched Requests:", requests)  # Debugging
+    # print("✅ Fetched Requests:", requests)  # Debugging
 
     cur.close()
     conn.close()
@@ -92,3 +92,24 @@ def update_request():
     #return jsonify({"status": "success", "message": f"Request {request_id} updated to {action}"})
     #flash(f"Request {request_id} updated to {action}", "success")
     return redirect(url_for('provider.provider_dashboard'))
+
+@provider_bp.route("/my-requests", methods=["GET"])
+def my_requests():
+    conn = get_snowflake_connection()
+    cur = conn.cursor()
+
+    station_name = session.get("username")
+
+    sql_query = """
+        SELECT REQUEST_ID, REQUEST_TIME, USERNAME, MOBILE, CURRENT_LOCATION, SERVICE_TYPE
+        FROM ESUVIDHA.APPDATA.CHARGING_REQUESTS
+        WHERE UPPER(STATION_NAME) = UPPER(%s) AND STATUS = 'completed' 
+        ORDER BY REQUEST_TIME DESC
+    """
+    cur.execute(sql_query,(station_name,))
+    requests = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return render_template("provider_my_requests.html", requests=requests)
